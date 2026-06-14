@@ -31,7 +31,7 @@ export default function ProductDetail()
         <div className="col-md-3 mb-4">
           <div className="card h-100 d-flex align-items-center justify-content-center text-center" style={{backgroundColor:"red"}}>
             <div className="card-body d-flex align-items-center">
-             <Link to={"/admin//addproduct"}><button style={{minHeight:"50px",borderRadius:"5px"}}> Add Product </button></Link> 
+             <Link to={"/admin/addproduct"}><button style={{minHeight:"50px",borderRadius:"5px"}}> Add Product </button></Link> 
             </div>
           </div>
         </div>

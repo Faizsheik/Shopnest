@@ -1,7 +1,7 @@
 
 import React,{useState} from 'react';
 import {Link} from 'react-router-dom'
-import {toast,ToastContainer} from 'react-toastify';
+import {toast} from 'react-toastify';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { useNavigate } from "react-router-dom";
@@ -79,7 +79,7 @@ export default function Login({setToken,setUserName,setRole})
         {
             setPasswordError("Password should contain atleast 8 characters ,one upper case, lowerc case, one special character, one number")   
         }
-        else if(password.length == 0)
+        else if(password.length === 0)
         {
             setPasswordError("Please enter your password")
         }
@@ -147,7 +147,7 @@ export default function Login({setToken,setUserName,setRole})
 
                     // -- User name is not found
                     // -- user password is not correct
-                    if(response.status == 400)
+                    if(response.status === 400)
                     {
                         toast.error(data.error || "Kindly check your credentials");
                         setUserEmail("");
