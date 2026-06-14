@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 export default function ViewProducts()
 {
     const [products, setProducts] =  useState([]);
-   const [searchParams,setSearchParams]=useSearchParams()
+   const [searchParams] = useSearchParams();
       useEffect(()=>{
                  console.log(`url is ${process.env.REACT_APP_API_URL}`)
                  fetch(`${process.env.REACT_APP_API_URL}/products?${searchParams}`)
@@ -13,7 +13,7 @@ export default function ViewProducts()
                 .then(res => setProducts(res.products))   
                 .catch(err => console.log("Fetch error:", err))
             },[searchParams])
-            const outOfStockProducts = products.filter(product => product.stock === 0);
+           // const outOfStockProducts = products.filter(product => product.stock === 0);
     return <Fragment>
             <h1 id="products_heading">List of Products</h1>
         

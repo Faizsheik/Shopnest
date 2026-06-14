@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
 import Search from "./Search"
 import { Link, useNavigate } from 'react-router-dom'
 
 export default function Header({ cartItems, setCartItems, token, setToken, username, setUserName, role, setRole }) {
   const navigate = useNavigate();
-  console.log("header", cartItems);
-
+  
   // -- Log out functionality --
   function handleLogout() {
     localStorage.removeItem("token");

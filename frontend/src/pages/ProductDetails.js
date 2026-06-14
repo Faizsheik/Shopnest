@@ -4,7 +4,6 @@ import {toast} from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
 
-
 export default function ProductDetail({cartItems,setCartItems})    //get as array of objects
 {
     const [product,setProduct] = useState(null);

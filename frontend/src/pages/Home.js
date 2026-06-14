@@ -1,14 +1,10 @@
 import React, { Fragment , useState, useEffect} from 'react';
 import ProductCard from '../components/ProductCard';
-//import { useSearchParams } from 'react-router-dom';
-import {toast} from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
-
+import { useSearchParams } from 'react-router-dom';
 export default function Home({cartItems})
 {
     const [products, setProducts] =  useState([]);
-    //const [searchParams,setSearchParams]=useSearchParams();
-
+    const [searchParams] = useSearchParams();
     const categoryFilter = searchParams.get('category');
     const subCategoryFilter = searchParams.get('subCategory');
 

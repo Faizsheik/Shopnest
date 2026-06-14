@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import AddProduct from './AddProduct'
-import AddCategory from './AddCategory'
-import AddSubCategory from './AddSubCategory'
+// import AddProduct from './AddProduct'
+// import AddCategory from './AddCategory'
+// import AddSubCategory from './AddSubCategory'
 
 export default function ProductDetail() 
 {

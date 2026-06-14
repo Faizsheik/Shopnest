@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddCategory() {
+
     const [categories, setCategories] = useState([]);
     const [selectedcategory, setSelectedCategory] = useState("");
     const [subcategoryname, setSubCategoryName] = useState("");
@@ -33,29 +34,6 @@ export default function AddCategory() {
         }
     };
 
-    // Fetch subcategories based on chosen parent category
-    const fetchSubCategories = async () => {
-        if (!selectedcategory) {
-            setSubCategories([]);
-            return;
-        }
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/getsubcategoryitems/${selectedcategory}`);
-            const data = await response.json();
-            if (response.ok) 
-            {
-                setSubCategories(data.subCategoryItems || []);
-            } 
-            else  if(response.status === 404)
-            {
-                console.log("No subcategories found in the system");
-            }
-        } catch (error)
-         {
-            console.log("Error loading sub categories", error);
-            toast.error("Error loading subcategories from server.");
-        }
-    };
 
     // FIXED: Empty dependency array ensures this fires exactly once on initialization
     useEffect(() => {
@@ -63,9 +41,29 @@ export default function AddCategory() {
     }, []);
 
     // Fires whenever a parent category is selected or changed
-    useEffect(() => {
-        fetchSubCategories();
+   useEffect(() => {
+    const fetchSubCategories = async () => 
+    {
+        try 
+        {
+            // Your API URL might look something like this:
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/subcategories?category=${selectedcategory}`);
+            const data = await res.json();
+            
+        } 
+        catch (error)
+        {
+            console.error("Error fetching subcategories:", error);
+        }
+    };
+
+        // Only fetch if a category is actually selected
+        if (selectedcategory) {
+            fetchSubCategories();
+        }
+    
         setSubSelectedCategory(""); // Clear sub-selection when parent changes
+
     }, [selectedcategory]);
 
 

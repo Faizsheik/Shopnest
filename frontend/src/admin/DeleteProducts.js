@@ -2,7 +2,6 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
 import {toast} from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function DeleteProduct()
@@ -29,7 +28,7 @@ export default function DeleteProduct()
 
                      try
                     {
-                                         const token = localStorage.getItem('token'); // 🔑 Grab your token
+                                        
                                           const response = await fetch(`${process.env.REACT_APP_API_URL}/deleteProduct/${selectedproduct}`,{
                                           method:'DELETE',
                                           headers: {

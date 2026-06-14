@@ -1,11 +1,11 @@
 import React from 'react'
 import { Fragment , useState, useEffect} from 'react';
-import ProductCard from '../components/ProductCard';
 import { useSearchParams } from 'react-router-dom';
+import ProductCard from '../components/ProductCard';
 export default function ViewProducts()
 {
     const [products, setProducts] =  useState([]);
-   const [searchParams,setSearchParams]=useSearchParams()
+   const [searchParams]=useSearchParams()
       useEffect(()=>{
                  console.log(`url is ${process.env.REACT_APP_API_URL}`)
                  fetch(`${process.env.REACT_APP_API_URL}/products?${searchParams}`)

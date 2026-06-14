@@ -1,46 +1,43 @@
 import {Link} from 'react-router-dom';
 import {useState,useEffect} from 'react';
-import {toast} from 'react-toastify';
 
 export default function ProductCard({product})
 {
   const [numOfOrder,setNumOfOrder] = useState(0);
 
     
-  const fetchOrders = async () => {
-    try 
+ useEffect(() => {
+    const fetchOrders = async () => 
     {
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/getProductSalesCount/${product._id}`, {
-          method: "GET",
-        });
+      try {
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/getProductSalesCount/${product._id}`, 
+          { method: "GET" }
+        );
 
-      const data = await res.json();
-      if (!res.ok) 
-      {
-        throw new Error(data.message || "Failed to fetch the sales count");  // dont need to show to user
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.message || "Failed to fetch the sales count");
+        }
+        setNumOfOrder(data.count);
+      } catch (error) {
+        console.error("Error fetching sales count:", error.message); 
       }
-      setNumOfOrder(data.count);
+    };
 
-    } 
-    catch (error) 
-    {
-      console.error("Error fetching sales count:", error.message); 
-    }
-  };
-
-  useEffect(() => {
-   fetchOrders();
+    fetchOrders();
   }, [product._id]);
 
 
     return <div className="col-sm-12 col-md-6 col-lg-3 my-3">
           <div className="card p-3 rounded">
 
+           
             <img
-              className="card-img-top mx-auto"
-              src={product.images[0].image}
-            />
+            className="card-img-top mx-auto"
+            src={product.images[0].image}
+            alt={product.name} 
+          />
 
             <div className="card-body d-flex flex-column">
 
