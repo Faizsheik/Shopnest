@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react'; // Added useCallback
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,17 +23,35 @@ export default function AddCategory() {
             } 
             else
             {
-                // toast.error("Failed to fetch Categories");
                 console.log("Failed to fetch categories",data.message);
             }
         } 
         catch (error) 
         {
             console.log("Error loading categories from server.",error);
-            toast.error("Error loading categories from server.",error);
+            toast.error("Error loading categories from server.");
         }
     };
 
+    // MOVED OUTSIDE: fetchSubCategories is now accessible globally within this component
+    const fetchSubCategories = useCallback(async () => {
+        if (!selectedcategory) return; // Safeguard if no category is selected
+        try 
+        {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/subcategories?category=${selectedcategory}`);
+            const data = await res.json();
+            
+            // Assuming your backend response returns an array or object containing subcategories
+            // Update this line if your backend response uses a different structure (e.g., data.subCategoryItems)
+            if (res.ok) {
+                setSubCategories(data || []); 
+            }
+        } 
+        catch (error)
+        {
+            console.error("Error fetching subcategories:", error);
+        }
+    }, [selectedcategory]);
 
     // FIXED: Empty dependency array ensures this fires exactly once on initialization
     useEffect(() => {
@@ -41,30 +59,15 @@ export default function AddCategory() {
     }, []);
 
     // Fires whenever a parent category is selected or changed
-   useEffect(() => {
-    const fetchSubCategories = async () => 
-    {
-        try 
-        {
-            // Your API URL might look something like this:
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/subcategories?category=${selectedcategory}`);
-            const data = await res.json();
-            
-        } 
-        catch (error)
-        {
-            console.error("Error fetching subcategories:", error);
-        }
-    };
-
-        // Only fetch if a category is actually selected
+    useEffect(() => {
         if (selectedcategory) {
             fetchSubCategories();
+        } else {
+            setSubCategories([]); // Clear subcategories list if parent is cleared
         }
     
         setSubSelectedCategory(""); // Clear sub-selection when parent changes
-
-    }, [selectedcategory]);
+    }, [selectedcategory, fetchSubCategories]);
 
 
 
@@ -113,7 +116,7 @@ export default function AddCategory() {
             if (response.ok) {
                 toast.success("Sub Category deleted successfully!");
                 setSubSelectedCategory("");
-                fetchSubCategories(); // Reload dropdown entries instantly
+                fetchSubCategories(); // NOW WORKS: Reload dropdown entries instantly
             } else {
                 toast.error("Failed to delete Sub Category");
             }
@@ -164,7 +167,7 @@ export default function AddCategory() {
                 toast.success("Sub Category added successfully!");
                 setSubCategoryName("");
                 setSubCategoryImage("");
-                fetchSubCategories(); // Reload dropdown entries instantly
+                fetchSubCategories(); // NOW WORKS: Reload dropdown entries instantly
             } else {
                 toast.error("Failed to add the Sub Category");
             }
@@ -221,7 +224,7 @@ export default function AddCategory() {
                                     className="form-control" 
                                     placeholder="Enter Subcategory name" 
                                     value={subcategoryname} 
-                                    onChange={handleSubCategoryNameChange} // Fixed validation trigger
+                                    onChange={handleSubCategoryNameChange} 
                                     required 
                                 />
                             </div>
@@ -236,7 +239,7 @@ export default function AddCategory() {
                                     className="form-control" 
                                     placeholder="https://image-link.com" 
                                     value={subcategoryimage} 
-                                    onChange={handleSubCategoryImageChange} // Fixed validation trigger
+                                    onChange={handleSubCategoryImageChange} 
                                     required 
                                 />
                             </div>
@@ -265,7 +268,7 @@ export default function AddCategory() {
                                 <select 
                                     className="form-select mb-2" 
                                     style={{ width: '100%', height: '38px' }}
-                                    value={selectedsubcategory} // FIXED: Corrected value mapping from selectedcategory
+                                    value={selectedsubcategory} 
                                     onChange={(e) => setSubSelectedCategory(e.target.value)}
                                 >
                                     <option value="">-- Select a Sub Category --</option>
@@ -280,7 +283,6 @@ export default function AddCategory() {
 
                         <div className="row">
                             <div className="col-sm-8 offset-sm-4">
-                                {/* FIXED: Explicit type="button" limits form execution leaks */}
                                 <button 
                                     type="button" 
                                     onClick={deleteSubCategory}
