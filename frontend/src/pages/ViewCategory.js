@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom';
 import {useState,useEffect} from 'react';
 import {toast} from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export default function ViewCategory()
 {

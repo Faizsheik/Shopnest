@@ -114,7 +114,7 @@ export default function ProductDetail({cartItems,setCartItems})    //get as arra
 
         function increaseQty()
         {
-            if(product.stock == qty)
+            if(product.stock === qty)
             {
                 return;
             }

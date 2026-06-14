@@ -1,7 +1,7 @@
 
 import React,{useState,useEffect} from "react";
 import {toast} from "react-toastify";
-import {useParams,Link} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 export default function ProductReview()
 {
@@ -55,7 +55,7 @@ export default function ProductReview()
 
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
-        if(rating == 0)
+        if(rating === 0)
         {
             toast.error("please provide a star rating first");
             return;

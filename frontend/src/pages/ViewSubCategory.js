@@ -2,7 +2,6 @@ import {Link} from 'react-router-dom';
 import React, { Fragment , useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import {toast} from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 

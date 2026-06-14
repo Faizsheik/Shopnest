@@ -18,7 +18,17 @@ connectDatbase();
 
 // middleware
 app.use(express.json({limit:'50mb'}))
-app.use(cors()); 
+// app.use(cors()); 
+//For Deployment
+app.use(cors({
+    origin: [
+      "http://localhost:3000",
+      "https://shopnest-backend-jgdr.onrender.com"
+    ],
+    credentials: true
+}))
+
+
 // set response header
 app.use('/api/v1/',products);
 app.use('/api/v1/',orders);
