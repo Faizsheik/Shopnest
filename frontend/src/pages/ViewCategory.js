@@ -39,7 +39,7 @@ export default function ViewCategory()
                 }
             }
         fetchCategories();
-        },[categories])
+        },[]) //changed after deploment
 
     
 

@@ -27,7 +27,7 @@ export default function ProductDetail({cartItems,setCartItems})    //get as arra
                 }
                 else if(res.status === 404)
                 {
-                    setProduct([]);
+                   setProduct(null);
                     toast.error(data.message|| "product is not found");
                 }
                 else
