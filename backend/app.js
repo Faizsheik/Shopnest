@@ -28,6 +28,13 @@ app.use(cors({
     credentials: true
 }))
 
+// Add a root route handler
+app.get('/', (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "ShopNest Backend API is running smoothly!"
+    });
+});
 
 // set response header
 app.use('/api/v1/',products);
