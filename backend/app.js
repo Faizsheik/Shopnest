@@ -9,7 +9,7 @@ dotenv.config({path:path.join(__dirname,'config','config.env')})
 const products = require('./routes/product');
 const orders = require('./routes/order');
 const users = require('./routes/user')
-const addproduct = require('./routes/product')
+//const addproduct = require('./routes/product')
 const cart = require('./routes/cart')
 const category = require('./routes/category')
 const payment = require('./routes/payment')
@@ -37,14 +37,14 @@ app.get('/', (req, res) => {
 });
 
 // set response header
-app.use('/api/v1/',products);
-app.use('/api/v1/',orders);
-app.use('/api/v1/',addproduct);
-app.use('/api/v1/',users);
-app.use('/api/v1/',cart);
-app.use('/api/v1/',category);
-app.use('/api/v1/',payment)
-app.use('/api/v1/',review);
+app.use('/api/v1',products);
+app.use('/api/v1',orders);
+app.use('/api/v1',addproduct);
+app.use('/api/v1',users);
+app.use('/api/v1',cart);
+app.use('/api/v1',category);
+app.use('/api/v1',payment)
+app.use('/api/v1',review);
 
 //app.use('/api/v1/',login);
 app.listen(process.env.PORT,()=>{
