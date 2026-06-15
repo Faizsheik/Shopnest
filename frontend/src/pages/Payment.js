@@ -40,6 +40,7 @@ export default function Payment() {
           const res = await fetch(`${process.env.REACT_APP_API_URL}/payment/verify`, {
             method: "POST",
             headers: {
+            
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`
             },
@@ -51,15 +52,20 @@ export default function Payment() {
           const data = await res.json();  
           console.log("payyyyment",data);
 
-          if (data.success) {
+          if (data.success) 
+          {
               navigate("/success", { state: { dbOrderId: dbOrderId } });
-          } else {
+          } 
+          else
+          {
             alert(data.message || "Payment verification failed!");
             //1. Razorpay Signature Mismatch (Most Common)
             //2. Orderid is missing in the database
             //3. The User is Logged Out / Session Expired
           }
-        } catch (err) {
+        } 
+        catch (err)
+         {
           alert("Payment verification connection failed!");
         }
       },

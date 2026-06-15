@@ -7,7 +7,8 @@ export default function OrderSuccess({setCartItems})
   const orderId = location.state?.dbOrderId || "";
   const shortOrderId = orderId ? "ORD-" + orderId.slice(-6).toUpperCase() : "N/A";  
 
-  useEffect(() => {
+  useEffect(() => 
+  {
     setCartItems([]);   
     localStorage.removeItem("cartItems"); 
   }, [setCartItems]);

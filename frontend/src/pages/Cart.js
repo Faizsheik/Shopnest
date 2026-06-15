@@ -50,7 +50,7 @@ export default function Cart({ cartItems, setCartItems }) {
         }
 
         fetchCart();
-    }, [[token, setCartItems]]); 
+    }, []); 
 
     // --- Increase Quantity ---
     function increaseQty(item) 

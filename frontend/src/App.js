@@ -64,21 +64,26 @@ function App() {
         return;
       }
       
-      try {
+      try 
+      {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/getCartDetails`, {
           method: 'GET',
-          headers: {
+          headers: 
+          {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           }
         });
         const data = await res.json();
 
-        if (res.ok && data.items) {
+        if (res.ok && data.items) 
+        {
           localStorage.setItem("cartItems", JSON.stringify(data.items));
           setCartItems(data.items); // Sync globally across Header and Cart pages
         }
-      } catch (error) {
+      } 
+      catch (error) 
+      {
         console.error("Failed sync error: ", error.message);
       }
     }
