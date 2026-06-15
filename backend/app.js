@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 // set response header
 app.use('/api/v1',products);
 app.use('/api/v1',orders);
-app.use('/api/v1',addproduct);
+//app.use('/api/v1',addproduct);
 app.use('/api/v1',users);
 app.use('/api/v1',cart);
 app.use('/api/v1',category);
