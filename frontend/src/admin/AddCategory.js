@@ -9,7 +9,7 @@ export default function AddCategory() {
     const [categories, setCategories] = useState([]);
     const [selectedcategory, setSelectedCategory] = useState("");
 
-    // Helper function to fetch categories cleanly
+    // ..Helper function to fetch categories cleanly
     const fetchCategories = async () => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/getcategoryitems`);
