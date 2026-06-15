@@ -53,7 +53,10 @@ exports.verifyPayment = async (req, res) => {
 
         try 
         {
-            await Cart.findOneAndUpdate({ userId: req.user.id }, { items: [] });
+            if (req.user && req.user.id) 
+            {
+                await Cart.findOneAndUpdate({ userId: req.user.id }, { items: [] });
+            }
 
             if (order.user && order.user.email) {
                 const shortOrderId = `ORD-${order._id.toString().slice(-6).toUpperCase()}`;
@@ -67,7 +70,7 @@ exports.verifyPayment = async (req, res) => {
         } 
         catch (bgError) 
         {
-            console.error("Background task worker execution anomaly (Cart/Email):", bgError.message);
+            console.error("Background task error (Cart/Email failed, but payment succeeded):", bgError.message);
         }
 
         return res.status(200).json({
