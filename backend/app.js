@@ -46,8 +46,10 @@ app.use('/api/v1',category);
 app.use('/api/v1',payment)
 app.use('/api/v1',review);
 
+const PORT = process.env.PORT || 8000;
+
 //app.use('/api/v1/',login);
-app.listen(process.env.PORT,()=>{
+app.listen(PORT,()=>{
     console.log(`server listening to port ${process.env.PORT} in  ${process.env.NODE_ENV}`)
 })
 
