@@ -94,13 +94,12 @@ export default function Header({ cartItems, setCartItems, token, setToken, usern
           </Link>
           ) : (
             <Link to="/cart" className="text-white text-decoration-none">
-              <span id="cart">Cart</span>
-              <span className="ml-1 badge badge-pill badge-warning text-dark" id="cart_count">
-                {cartItems && cartItems.length > 0
-                  ? cartItems.length
-                  : JSON.parse(localStorage.getItem("cartItems"))?.length || 0}
-              </span>
-            </Link>
+            <span id="cart">Cart</span>
+            <span className="ml-1 badge badge-pill badge-warning text-dark" id="cart_count">
+              {/* Safely counts array items without risking a JSON parsing exception */}
+              {Array.isArray(cartItems) ? cartItems.length : 0}
+            </span>
+          </Link>
           )}
         </div>
 

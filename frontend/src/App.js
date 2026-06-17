@@ -44,10 +44,25 @@ import ProductReview from './pages/ProductReview';
 function App() {
 
   // --- global states ---  
+  // --- global states ---  
   const [cartItems, setCartItems] = useState(() => {
   const savedCart = localStorage.getItem("cartItems");
-  return savedCart ? JSON.parse(savedCart) : [];
-  });
+  
+  // Guard against null, undefined, or the literal string "undefined"
+  if (!savedCart || savedCart === "undefined") {
+    return [];
+  }
+
+  try 
+  {
+    return JSON.parse(savedCart);
+  } 
+  catch (error) 
+  {
+    console.error("Error parsing cart items from localStorage:", error);
+    return []; // Return empty array fallback if JSON parsing fails
+  }
+});
 
 
   // --- auth states ---
@@ -59,8 +74,9 @@ function App() {
   useEffect(() => {
 
     async function fetchUserCart() {
+      //user not logged in
       if (!token) {
-        setCartItems([]);
+        //setCartItems([]);
         return;
       }
       
@@ -74,13 +90,21 @@ function App() {
             'Authorization': `Bearer ${token}`
           }
         });
-        const data = await res.json();
-
-        if (res.ok && data.items) 
+        if (!res.ok) 
         {
-          localStorage.setItem("cartItems", JSON.stringify(data.items));
-          setCartItems(data.items); // Sync globally across Header and Cart pages
+          console.warn(`Database sync skipped. Code: ${res.status}`);
+          return; // Exits safely without overwriting your browser's local state memory
         }
+        const data = await res.json();
+        console.log("cart:",data);
+
+          if (data.cart && data.cart.items)
+          {
+          // Merge server cart with localStorage if needed, or just use server
+          localStorage.setItem("cartItems", JSON.stringify(data.cart.items));
+          setCartItems(data.cart.items);
+        }
+
       } 
       catch (error) 
       {
@@ -90,6 +114,7 @@ function App() {
 
     fetchUserCart();
   }, [token]);
+
 
 
   return (

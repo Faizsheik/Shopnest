@@ -21,12 +21,10 @@ app.use(express.json({limit:'50mb'}))
 // app.use(cors()); 
 //For Deployment
 app.use(cors({
-    origin: [
-      "http://localhost:3000",
-      "https://shopnest-tau.vercel.app"
-    ],
-    credentials: true
-}))
+  origin: ['http://localhost:3000'],
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Add a root route handler
 app.get('/', (req, res) => {

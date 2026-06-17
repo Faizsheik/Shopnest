@@ -16,41 +16,47 @@ export default function Cart({ cartItems, setCartItems }) {
     };
 
     // --- Fetch Cart Data ---
-    useEffect(() => {
-        async function fetchCart() {
-            if (!token) return;
+    // useEffect(() => 
+    // {
+    //     async function fetchCart() {
+
+    //         if (!token) return;
             
-            try {
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/getCartDetails`, {
-                    method: 'GET',
-                    headers: getAuthHeaders()
-                });
-                const data = await res.json();
-                console.log("cart items", data);
+    //         try 
+    //         {
+    //                 const res = await fetch(`${process.env.REACT_APP_API_URL}/getCartDetails`, {
+    //                 method: 'GET',
+    //                 headers: getAuthHeaders()
+    //             });
+    //             const data = await res.json();
+    //             console.log("cart items", data);
 
-                if (res.ok) 
-                {
-                    const items = data.cart && data.cart.items ? data.cart.items : [];
-                    localStorage.setItem("cartItems", JSON.stringify(items));
-                    setCartItems(items);
-                } else if (res.status === 404) 
-                {
-                    localStorage.setItem("cartItems", JSON.stringify([])); 
-                    setCartItems([]);
-                } else {
-                    console.error(data.message || "Failed to load cart");
-                }
+    //             if (res.ok) 
+    //             {
+    //                 const items = data.cart && data.cart.items ? data.cart.items : [];
+    //                 localStorage.setItem("cartItems", JSON.stringify(items));
+    //                 setCartItems(items);
+    //             } 
+    //             else if (res.status === 404) 
+    //             {
+    //                 localStorage.setItem("cartItems", JSON.stringify([])); 
+    //                 setCartItems([]);
+    //             } 
+    //             else 
+    //             {
+    //                 console.error(data.message || "Failed to load cart");
+    //             }
 
+    //         } 
+    //         catch (error)
+    //         {
+    //             console.error("Cart fetch error:", error);
+    //             toast.error("Error connecting to server.");
+    //         }
+    //     }
 
-            } 
-            catch (error) {
-                console.error("Cart fetch error:", error);
-                toast.error("Error connecting to server.");
-            }
-        }
-
-        fetchCart();
-    }, []); 
+    //     fetchCart();
+    // }, []); 
 
     // --- Increase Quantity ---
     function increaseQty(item) 

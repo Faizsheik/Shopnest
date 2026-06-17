@@ -89,8 +89,19 @@ export default function ProductDetail({cartItems,setCartItems})    //get as arra
                 console.log(data);
                 if (res.ok) 
                 {
-                    const updatedItems = data.cart && data.cart.items ? data.cart.items : [];
+                    const newItem = {
+                    productId: product._id,        // use product._id directly
+                    quantity: qty,
+                    price: product.price,
+                    // Optional: if you want product details for display
+                    productId_name: product.name,
+                    productId_images: product.images
+                };
+                
+                    //const updatedItems = data.cart && data.cart.items ? data.cart.items : [];
+                    const updatedItems = [...cartItems, newItem];
                     setCartItems(updatedItems);
+                    localStorage.setItem("cartItems", JSON.stringify(updatedItems));
                     toast.success("Added to cart successfully");
                 }
 
