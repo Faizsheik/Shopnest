@@ -108,12 +108,13 @@ export default function Login({setToken,setUserName,setRole})
                 return;
 
             }
-
+           
 
             const newUser = {
                 password: password.trim(),
                 identifier: contactType === "email" ? useremail.toLowerCase().trim() : usermobile
             };
+             console.log("Sending login request:", newUser);
 
             try 
             {
@@ -122,10 +123,11 @@ export default function Login({setToken,setUserName,setRole})
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(newUser)
                 });
+                let data = await response.json();
 
                 if (response.ok) 
                 {
-                    const data = await response.json();
+                    
                     toast.success(data.message || "Logged in successfully!");
                     
                     localStorage.setItem('token', data.token);
@@ -143,7 +145,7 @@ export default function Login({setToken,setUserName,setRole})
                     return;
                 }
 
-                    const data = await response.json();
+                     data = await response.json();
 
                     // -- User name is not found
                     // -- user password is not correct

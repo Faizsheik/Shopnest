@@ -5,7 +5,8 @@ const ProductModel = require("../models/productModel");
 const sendEmail = require("../utils/sendEmails");   
 
 exports.verifyPayment = async (req, res) => {
-    try {
+    try 
+    {
         const { razorpay_order_id, razorpay_payment_id, razorpay_signature, dbOrderId } = req.body;
 
         const sign = razorpay_order_id + "|" + razorpay_payment_id;
@@ -16,7 +17,8 @@ exports.verifyPayment = async (req, res) => {
 
         const isAuthentic = expectedSign === razorpay_signature;
 
-        if (!isAuthentic) {
+        if (!isAuthentic) 
+        {
             return res.status(400).json({
                 success: false,
                 message: "Invalid signature! Transaction might be tampered"
@@ -24,6 +26,9 @@ exports.verifyPayment = async (req, res) => {
         }
 
         const order = await Order.findById(dbOrderId).populate("user", "username email");
+         console.log("Order User:", order.user);
+
+        console.log("orderssss",order)
 
         if (!order) 
         {
@@ -50,28 +55,68 @@ exports.verifyPayment = async (req, res) => {
                 );
             }
         }
+       
 
+        // --- EMAIL VERFICATION ---
         try 
         {
             if (req.user && req.user.id) 
             {
                 await Cart.findOneAndUpdate({ userId: req.user.id }, { items: [] });
             }
+            
+        
+            if (!order.user) {
+                console.log("order.user is missing");
+            }
 
-            if (order.user && order.user.email) {
-                const shortOrderId = `ORD-${order._id.toString().slice(-6).toUpperCase()}`;
+            if (!order.user?.email) {
+                console.log("order.user.email is missing");
+            }
 
-                await sendEmail({
-                    email: order.user.email, 
+            if (order.user && order.user.email) 
+            {
+                const shortOrderId =
+                    `ORD-${order._id.toString().slice(-6).toUpperCase()}`;
+
+                console.log("About to send email to:", order.user.email);
+
+                const result = await sendEmail({
+                    email: order.user.email,
                     subject: "Order Placed Successfully",
-                    message: `Hello ${order.user.username || "Customer"},\n\nYour order has been placed successfully.\nOrder ID: ${shortOrderId}\nTotal Amount: ₹${order.totalPrice}\n\nThank you for shopping with us.`
+                    message: `Hello ${order.user.username || "Customer"},
+
+            Your order has been placed successfully.
+
+            Order ID: ${shortOrderId}
+            Total Amount: ₹${order.totalPrice}
+
+            Thank you for shopping with us.`
                 });
+
+                console.log("sendEmail returned:");
+                console.log(result);
+            }
+
+
+            else
+            {
+                console.log("no user or email found on the db");
             }
         } 
         catch (bgError) 
         {
             console.error("Background task error (Cart/Email failed, but payment succeeded):", bgError.message);
+            console.error("Error details:", {
+            message: bgError.message,
+            stack: bgError.stack,
+            code: bgError.code,
+            response: bgError.response
+        });
         }
+        //----= EMAIL VERIFICATION END ------
+
+
 
         return res.status(200).json({
             success: true,
@@ -79,6 +124,7 @@ exports.verifyPayment = async (req, res) => {
         });
 
     } 
+    
     catch (error) 
     {
         console.error("Verification logic structural crash error:", error);

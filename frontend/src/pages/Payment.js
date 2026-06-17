@@ -53,7 +53,7 @@ export default function Payment() {
           const data = await res.json();  
           console.log("payyyyment",data);
 
-          if (data.success) 
+          if (data.success === true) 
           {
               navigate("/success", { state: { dbOrderId: dbOrderId } });
           } 

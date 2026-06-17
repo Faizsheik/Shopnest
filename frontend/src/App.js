@@ -73,13 +73,14 @@ function App() {
   // --- if the user is not logged in, clear the cart items --- 
   useEffect(() => {
 
-    async function fetchUserCart() {
+    async function fetchUserCart() 
+    {
       //user not logged in
-      if (!token) {
+      if (!token) 
+      {
         //setCartItems([]);
         return;
       }
-      
       try 
       {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/getCartDetails`, {
@@ -90,6 +91,7 @@ function App() {
             'Authorization': `Bearer ${token}`
           }
         });
+
         if (!res.ok) 
         {
           console.warn(`Database sync skipped. Code: ${res.status}`);
@@ -111,7 +113,6 @@ function App() {
         console.error("Failed sync error: ", error.message);
       }
     }
-
     fetchUserCart();
   }, [token]);
 
