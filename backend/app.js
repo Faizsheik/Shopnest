@@ -21,7 +21,8 @@ app.use(express.json({limit:'50mb'}))
 // app.use(cors()); 
 //For Deployment
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: ['http://localhost:3000',
+  'https://your-deployed-frontend-url.com'],
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
