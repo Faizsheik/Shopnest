@@ -22,7 +22,8 @@ app.use(express.json({limit:'50mb'}))
 //For Deployment
 app.use(cors({
   origin: ['http://localhost:3000',
-  'https://your-deployed-frontend-url.com'],
+  'https://shopnest-tau.vercel.app'],
+  
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
