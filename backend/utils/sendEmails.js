@@ -6,11 +6,24 @@ const sendEmail = async (options) => {
         console.log("SMTP_EMAIL:", process.env.SMTP_EMAIL);
         console.log("Recipient:", options.email);
 
+        // const transporter = nodemailer.createTransport({
+        //     service: "gmail",
+        //     auth: {
+        //         user: process.env.SMTP_EMAIL,
+        //         pass: process.env.SMTP_PASSWORD
+        //     }
+        // });
+
         const transporter = nodemailer.createTransport({
-            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // Must be false for port 587
             auth: {
                 user: process.env.SMTP_EMAIL,
                 pass: process.env.SMTP_PASSWORD
+            },
+            tls: {
+                rejectUnauthorized: false // Helps prevent local connection dropped errors
             }
         });
 
