@@ -24,7 +24,7 @@ app.use(cors({
   origin: ['http://localhost:3000',
   'https://shopnest-tau.vercel.app'],
   
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST','DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 

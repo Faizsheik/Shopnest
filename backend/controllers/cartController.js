@@ -34,6 +34,8 @@ exports.addToCart = async(req,res)=>
             cart.items.push({productId,quantity,price});
         }
         await cart.save();
+        await cart.populate('items.productId');
+
 
         res.status(200).json({
             success: true,
@@ -102,7 +104,7 @@ exports.deleteCartItem = async (req , res, next) =>
                     }
                 },
                 { new: true }
-                );
+                ).populate('items.productId');
 
 
                 if (!cart) {

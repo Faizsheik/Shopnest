@@ -60,7 +60,7 @@ export default function ProductDetail({cartItems,setCartItems})    //get as arra
         };
 
 
-        // -- Add to cart functionality
+       // -- Add to cart functionality
         const addToCart  = async () =>
         {
             if(!token)
@@ -69,9 +69,12 @@ export default function ProductDetail({cartItems,setCartItems})    //get as arra
                 return;
             }
 
+            
+
             try
             {
-                const obj = {
+                const obj = 
+                {
                     productId: product._id,
                     quantity: qty,
                     price:product.price
@@ -84,22 +87,31 @@ export default function ProductDetail({cartItems,setCartItems})    //get as arra
                     body: JSON.stringify(obj)
                 });
 
-                const data = await res.json();
+                console.log(res);
 
-                console.log(data);
+                const data = await res.json();
+                // if (res.ok) 
+                // {
+                //     const newItem = {
+                //     productId: {
+                //         _id: product._id,
+                //         name: product.name,
+                //         images: product.images
+                //     },
+                //     quantity: qty,
+                //     price: product.price
+                // };
+                
+                //     //const updatedItems = data.cart && data.cart.items ? data.cart.items : [];
+                //     const updatedItems = [...cartItems, newItem];
+                //     setCartItems(updatedItems);
+                //     localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+                //     toast.success("Added to cart successfully");
+                // }
                 if (res.ok) 
                 {
-                    const newItem = {
-                    productId: product._id,        // use product._id directly
-                    quantity: qty,
-                    price: product.price,
-                    // Optional: if you want product details for display
-                    productId_name: product.name,
-                    productId_images: product.images
-                };
-                
-                    //const updatedItems = data.cart && data.cart.items ? data.cart.items : [];
-                    const updatedItems = [...cartItems, newItem];
+                    // Extract the accurately updated items array from your backend response
+                    const updatedItems = data.cart && data.cart.items ? data.cart.items : [];
                     setCartItems(updatedItems);
                     localStorage.setItem("cartItems", JSON.stringify(updatedItems));
                     toast.success("Added to cart successfully");
