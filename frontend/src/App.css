@@ -154,18 +154,14 @@ nav {
 }
 
 /* Footer */
-/* footer {
+footer {
   margin-top: 8rem;
   color: grey;
   bottom: 0;
   width: 100%;
   position: fixed;
-} */
-footer {
-  position: static;
-  width: 100%;
-  margin-top: 4rem;
 }
+
 
 /* Ratings */
 
