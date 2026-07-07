@@ -23,6 +23,7 @@ export default function Header({ cartItems, setCartItems, token, setToken, usern
   return (
     <nav className="navbar navbar-expand-lg row bg-dark py-3 align-items-center">
       <div className="col-12 col-md-3 d-flex align-items-center">
+
         <div className="navbar-brand">
           <Link to="/">
             <img width="70px" src="../images/logo_main.png" alt="logo" />
@@ -35,7 +36,7 @@ export default function Header({ cartItems, setCartItems, token, setToken, usern
       </div>
 
       {/* Changed col-md-4 to col-md-5 to give it more horizontal breathing room, removed flex-wrap */}
-      <div className="col-12 col-md-5 mt-3 mt-md-0 d-flex justify-content-between align-items-center">
+        <div className="col-12 col-md-5 mt-3 mt-md-0 d-flex flex-wrap justify-content-center justify-content-md-between align-items-center gap-2 gap-md-0">
         {/* 1. User Greeting / Sign In */}
         <div className="mx-1 text-nowrap">
           {isLoggedIn && username ? (
@@ -116,6 +117,7 @@ export default function Header({ cartItems, setCartItems, token, setToken, usern
           </div>
         )}
       </div>
+
     </nav>
   );
 }

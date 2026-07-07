@@ -133,7 +133,8 @@ export default function Cart({ cartItems, setCartItems }) {
                         {cartItems.map((item) => (
                             <Fragment key={item.productId?._id || item._id}>
                                 <div className="cart-item">
-                                    <div className="row">
+                                    <div className="row align-items-center"> 
+                                        {/* fixed */}
                                         {/* Image wrapper */}
                                         <div className="col-4 col-lg-3">
                                             <img 
@@ -146,30 +147,31 @@ export default function Cart({ cartItems, setCartItems }) {
                                         </div>
 
                                         {/* Link & Title */}
-                                        <div className="col-5 col-lg-3">
-                                            <Link to={`/product/${item.productId?._id}`}>
+                                        <div className="col-8 col-md-3 col-lg-3">
+                                                <Link to={`/product/${item.productId?._id}`}>
                                                 {item.productId?.name || "Unknown Product"}
                                             </Link>
                                         </div>
 
                                         {/* Unit Price */}
-                                        <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                                        <div className="col-5 col-md-2 col-lg-2 mt-3 mt-md-0">
                                             <p id="card_item_price">{item.price}</p>
                                         </div>
 
-                                        {/* Quantity Modifiers */}
-                                        <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-                                            <div className="stockCounter d-inline">
-                                                <span className="btn btn-danger minus" onClick={() => decreaseQty(item)}>-</span>
-                                                <input type="number" className="form-control count d-inline" value={item.quantity} readOnly />
-                                                <span className="btn btn-primary plus" onClick={() => increaseQty(item)}>+</span>
-                                            </div>
+                                    {/* Quantity Modifiers - Bumped from col-4 up to col-5 on mobile to stop structural element breakups */}
+                                    <div className="col-5 col-md-3 col-lg-3 mt-3 mt-md-0">
+                                        <div className="stockCounter d-flex align-items-center"> {/* Switched to d-flex for flawless row locking */}
+                                            <span className="btn btn-danger minus" onClick={() => decreaseQty(item)}>-</span>
+                                            <input type="number" className="form-control count text-center" value={item.quantity} readOnly style={{ width: '3rem' }} />
+                                            <span className="btn btn-primary plus" onClick={() => increaseQty(item)}>+</span>
                                         </div>
+                                    </div>
 
-                                        {/* Trash Removal Action */}
-                                        <div className="col-4 col-lg-1 mt-4 mt-lg-0">
-                                            <i id="delete_cart_item" className="fa fa-trash btn btn-danger" onClick={() => removeItem(item)}></i>
-                                        </div>
+                                    {/* Trash Removal Action - Scaled to remaining col-2 room */}
+                                    <div className="col-2 col-md-1 col-lg-1 mt-3 mt-md-0 text-right">
+                                        <i id="delete_cart_item" className="fa fa-trash btn btn-danger" onClick={() => removeItem(item)}></i>
+                                    </div>
+
                                     </div>
                                 </div>
                                 <hr />

@@ -167,13 +167,17 @@ export default function ProductDetail({cartItems,setCartItems})    //get as arra
         ↓
         UI updates*/
 
-    return product && <div className="container container-fluid">
-        <div className="row f-flex justify-content-around">
-            <div className="col-12 col-lg-5 img-fluid" id="product_image">
-                <img src={product.images[0].image} alt="sdf" height="500" width="500"/>
+    return product && <div className="container mt-4">
+<div className="row justify-content-center align-items-center">
+
+            <div className="col-12 col-lg-5 img-fluid text-center" id="product_image">
+                <img src={product.images[0].image} 
+                alt="sdf" 
+                className='img-fluid product-img'/> 
+                {/* changed */}
             </div>
 
-            <div className="col-12 col-lg-5 mt-5">
+            <div className="col-12 col-lg-5 mt-4 mt-lg-0">
                 <h3>{product.name}</h3>
                 <p id="product_id">{product._id}</p>
 
@@ -189,14 +193,41 @@ export default function ProductDetail({cartItems,setCartItems})    //get as arra
                 <hr/>
 
                 <p id="product_price">{product.price}</p>
-                <div className="stockCounter d-inline">
+                {/* <div className="stockCounter d-inline">
                     <span className="btn btn-danger minus" onClick={decreaseQty}>-</span>
 
                     <input type="number" className="form-control count d-inline" value={qty} readOnly />
 
                     <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
                 </div>
-                 <button type="button" id="cart_btn" className="btn btn-primary d-inline ml-4"  disabled={product.stock === 0 || token === ""} onClick={addToCart}>Add to Cart</button>
+                 <button type="button" id="cart_btn" className="btn btn-primary d-inline ml-4" 
+                  disabled={product.stock === 0 || token === ""} onClick={addToCart}>Add to Cart</button> */}
+
+
+                  <div className="cart-actions">
+                    <div className="stockCounter">
+                        <span className="btn btn-danger minus" onClick={decreaseQty}>-</span>
+
+                        <input
+                            type="number"
+                            className="form-control count"
+                            value={qty}
+                            readOnly
+                        />
+
+                        <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="cart_btn"
+                        className="btn btn-primary"
+                        disabled={product.stock === 0 || token === ""}
+                        onClick={addToCart}
+                    >
+                        Add to Cart
+                    </button>
+                </div>
 
                 <hr/>
 
