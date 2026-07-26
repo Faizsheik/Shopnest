@@ -35,7 +35,6 @@ https://shopnest-tau.vercel.app/
 - Admin Login
 - Dashboard
 - Add categories, sub-categories, products
-- Update Product Details
 - Delete Products
 - Upload Product Images
 - View Customer Orders
@@ -75,7 +74,7 @@ https://shopnest-tau.vercel.app/
 - Render (Backend Deployment)
 - Vercel (Frontend Deployment)
 
-### Integrations
+## Integrations
 
 - Razorpay Payment Gateway
 - Resend Email Service
@@ -91,7 +90,7 @@ https://shopnest-tau.vercel.app/
 
 ## 📸 Screenshots
 
-| Login | Registartion |
+| Login | Registration |
 |-------|------|
 | ![](Screenshots/Login.png) | ![](Screenshots/Registration.png) |
 
@@ -115,7 +114,11 @@ https://shopnest-tau.vercel.app/
 
 | Admin Dashboard | View Orders | Add Products
 |-----------------|-------------|-------------
-| ![](Screenshots/Admin.png) | ![](Screenshots/View%20customer%20order.png) | ![](Screenshots/Add%20product.png) 
+| ![](Screenshots/Admin.png) | ![](Screenshots/View%20customer%20order.png) | 
+
+Add Products |
+|----------|
+| ![](Screenshots/Add%20product.png) |
 
 ---
 
