@@ -104,6 +104,7 @@ export default function Register() {
     // --- SUBMIT HANDLER ---
 
     const handleFormSubmit = async (e) => {
+        
         e.preventDefault();
 
         // 1. Final sanity checks before API call

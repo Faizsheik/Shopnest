@@ -66,8 +66,9 @@ const sendEmail = async (options) => {
         console.log("Recipient:", options.email);
 
         // Initialize Resend with your API Key
-        const resend = new Resend(process.env.RESEND_API_KEY);
+        const resend = new Resend(process.env.RESEND_API_KEY); //class constructor
 
+        
         // Send the email using Resend's API
         const { data, error } = await resend.emails.send({
             // NOTE: While testing, you MUST use this 'from' address until you verify a custom domain
@@ -77,7 +78,8 @@ const sendEmail = async (options) => {
             text: options.message
         });
 
-        if (error) {
+        if (error) 
+        {
             throw error;
         }
 
@@ -87,7 +89,8 @@ const sendEmail = async (options) => {
 
         return data;
     }
-    catch (error) {
+    catch (error) 
+    {
         console.error("RESEND API ERROR");
         console.error(error);
         throw error;

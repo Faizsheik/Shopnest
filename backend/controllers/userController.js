@@ -63,7 +63,7 @@ exports.loginUserDetails = async (req, res) => {
             ]
           });
 
-          // --User is not registered --
+          // -- User is not registered --
           if(!user) {
             return res.status(400).json({message:"User is not registered!"});
           }

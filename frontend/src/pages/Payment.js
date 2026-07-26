@@ -28,7 +28,8 @@ export default function Payment() {
       name: "Shopnest",
       description: "Order Payment",
       order_id: razorpayOrderId,
-      handler: async function (response) {
+
+      handler: async function (response) {  //once razorpay completed its payment -- it will call this function
         try {
           const verifyData = {
             razorpay_order_id: response.razorpay_order_id,
@@ -49,9 +50,7 @@ export default function Payment() {
           });
 
 
-          console.log("HTTP status:", res.status); // ADD THIS
           const data = await res.json();  
-          console.log("payyyyment",data);
 
           if (data.success === true) 
           {
@@ -71,6 +70,9 @@ export default function Payment() {
           alert("Payment verification connection failed!");
         }
       },
+
+      // **************end of handler() function***************************
+
       prefill: {
         name: "Customer Name",
         email: "customer@example.com"

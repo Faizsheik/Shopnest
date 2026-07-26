@@ -163,7 +163,7 @@ function App() {
               {/* Protected Admin Routes */}
               <Route path="/admin/*" element={
                     <ProtectedRoute role={role} isAdminRequired={true}>
-                      <Routes>
+                      <Routes>    
                         <Route path="" element={<AdminDashboard/>}/>
                         <Route path="addproduct" element={<AddProduct/>}/>
                         <Route path="deleteproduct" element={<DeleteProduct/>}/>

@@ -4,12 +4,13 @@ const Cart = require("../models/cartModel");
 const ProductModel = require("../models/productModel");
 const sendEmail = require("../utils/sendEmails");   
 
-exports.verifyPayment = async (req, res) => {
+exports.verifyPayment = async (req, res) => {   //verification is done by backend
     try 
     {
         const { razorpay_order_id, razorpay_payment_id, razorpay_signature, dbOrderId } = req.body;
 
         const sign = razorpay_order_id + "|" + razorpay_payment_id;
+
         const expectedSign = crypto
             .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET) 
             .update(sign.toString())
@@ -26,10 +27,7 @@ exports.verifyPayment = async (req, res) => {
         }
 
         const order = await Order.findById(dbOrderId).populate("user", "username email");
-         console.log("Order User:", order.user);
-
-        console.log("orderssss",order)
-
+    
         if (!order) 
         {
             return res.status(404).json({
@@ -42,6 +40,7 @@ exports.verifyPayment = async (req, res) => {
         order.orderStatus = "processing...";
         await order.save();
 
+        //stock update
         if (order.orderItems && order.orderItems.length > 0) {
             for (const item of order.orderItems) {
                 const prodId = item.productId && typeof item.productId === 'object' 
