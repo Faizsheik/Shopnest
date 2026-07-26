@@ -113,7 +113,7 @@ https://shopnest-tau.vercel.app/
 | ![](Screenshots/Email%20Confirmation.png) | ![](Screenshots/Product%20Ratings%20&%20Reviews.png) |
 
 | Admin Dashboard | View Orders |
-|-----------------|-------------|-------------
+|-----------------|-------------|
 | ![](Screenshots/Admin.png) | ![](Screenshots/View%20customer%20order.png) | 
 
 Add Products |
